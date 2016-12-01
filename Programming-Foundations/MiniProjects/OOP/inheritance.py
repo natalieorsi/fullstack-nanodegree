@@ -4,5 +4,12 @@ class Parent():
 		self.last_name = last_name
 		self.eye_color = eye_color
 
-hiroki = Parent("Utada","nebula")
-print hiroki.last_name
+teruzane = Parent("Utada","nebula")
+print teruzane.last_name
+
+class Child(Parent):
+	def __init__(self,last_name,eye_color,num_toys):
+		print("Child constructor called")
+		Parent.__init__(self,last_name,eye_color)
+		self.num_toys = num_toys
+
