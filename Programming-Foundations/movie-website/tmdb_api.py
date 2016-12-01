@@ -19,20 +19,22 @@ def six_random_movies():
     while (len(movies) < 6) and (attempt < 10):
         num = random.randint(1,1000)
         try:
-            #Trailer info has to be called before calling .info()
+            #Trailer has to be called before calling .info()
             movie = tmdb.Movies(num)
-            movies[num] = {'trailer':movie.videos()['results']}
-
-            processed_url = youtube+movies[num]['trailer'][0]['key']
-            movies[num]['trailer'] = processed_url
+            trailer = movie.videos()['results']
+            movie = movie.info()
+            title = movie['title']
+            movies[title] = {}
+            #add trailer URL
+            processed_url = youtube+trailer['trailer'][0]['key']
+            movies[title]['trailer'] = processed_url
             #add poster path
-            movies[num]['poster'] = img_url+movie.info()['poster_path']
-            #add movie title
-            movies[num]['title'] = movie.info()['title']
+            movies[title]['poster'] = img_url+movie['poster_path']
             #add description
-            movies[num]['description'] = movie.info()['overview']
+            movies[title]['description'] = movie['overview']
         except:
             attempt += 1
 while len(movies) < 6:
     six_random_movies()
+    
 print movies

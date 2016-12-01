@@ -1,4 +1,4 @@
-import media, fresh_tomatoes
+import media, fresh_tomatoes, tmdb_api
 
 #Initialize the 6 media files
 
@@ -52,5 +52,11 @@ fallen = media.Movie("Fallen",
 					"https://www.youtube.com/watch?v=O-MRLGxczj8")
 
 #Open movies web page using fresh_tomatoes python file
-movies = [toy_story,avatar,book_of_love,fences,eloise,fallen]
-fresh_tomatoes.open_movies_page(movies)
+#movies = [toy_story,avatar,book_of_love,fences,eloise,fallen]
+six_random_movies()
+movie_list = []
+for movie in movies:
+    print movie
+    movie_list +=[movie['title'],movie['description'],movie['poster'],movie['trailer']]
+print movie_list
+#fresh_tomatoes.open_movies_page(movies)
