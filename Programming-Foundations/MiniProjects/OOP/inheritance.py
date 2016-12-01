@@ -13,3 +13,4 @@ class Child(Parent):
 		Parent.__init__(self,last_name,eye_color)
 		self.num_toys = num_toys
 
+hikaru = Child(self,"Utada","radiant",9999999)
