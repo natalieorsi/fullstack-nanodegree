@@ -1,7 +1,8 @@
 import webbrowser
 class Movie():
+	"""This class provides a way to save movie information."""
 	VALID_RATINGS = ['G','R','PG','PG-13']
-	#Google Python Style Guide
+	#Refer to Google Python Style Guide
 	def __init__(self, title, storyline, poster_image_url, trailer_youtube_url):
 		self.title = title
 		self.storyline = storyline
