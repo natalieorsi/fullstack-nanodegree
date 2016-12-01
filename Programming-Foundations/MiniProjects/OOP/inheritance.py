@@ -17,5 +17,10 @@ class Child(Parent):
 		Parent.__init__(self,last_name,eye_color)
 		self.num_toys = num_toys
 
+	def show_info(self):
+		print "Last name -",self.last_name
+		print "Eye color -",self.eye_color
+		print "Number of toys -",self.num_toys
+
 hikaru = Child("Utada","radiant",9999999)
 hikaru.show_info()
