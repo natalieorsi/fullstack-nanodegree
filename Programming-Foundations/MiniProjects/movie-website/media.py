@@ -1,5 +1,11 @@
 import webbrowser
-class Movie():
+
+class Video():
+	def __init__(self, title, duration):
+		self.title = title
+		self.duration = duration
+
+class Movie(Video):
 	"""This class provides a way to save movie information."""
 	VALID_RATINGS = ['G','R','PG','PG-13']
 	#Refer to Google Python Style Guide
@@ -11,3 +17,6 @@ class Movie():
 
 	def show_trailer(self):
 		webbrowser.open(self.trailer_youtube_url)
+
+class TvShow(Video):
+	# would be the TV Show class
