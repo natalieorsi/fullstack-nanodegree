@@ -39,6 +39,10 @@ def donut():
 		bill.speed(i+1)
 		bill.right(1)
 ocean()
+simone = turtle.Turtle()
+simone.shape("turtle")
+simone.color("yellow")
+draw_square(simone)
 donut()
 window.exitonclick()
 
