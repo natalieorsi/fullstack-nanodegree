@@ -4,6 +4,10 @@ class Parent():
 		self.last_name = last_name
 		self.eye_color = eye_color
 
+	def show_info(self):
+		print "Last name -",self.last_name
+		print "Eye color -",self.eye_color
+
 teruzane = Parent("Utada","nebula")
 print teruzane.last_name
 
@@ -14,4 +18,4 @@ class Child(Parent):
 		self.num_toys = num_toys
 
 hikaru = Child("Utada","radiant",9999999)
-print hikaru.last_name == teruzane.last_name
+hikaru.show_info()
