@@ -17,23 +17,27 @@ img_url = 'http://image.tmdb.org/t/p/w500'
 def six_random_movies():
     movies = []
     attempt = 0 #safeguard against infinite loops
-    while (len(movies) < 2) and (attempt < 10):
+    while (len(movies) < 6) and (attempt < 10):
         num = random.randint(1,1000)
         new_movie = []
         try:
             #Trailer has to be called before calling .info()
             movie = tmdb.Movies(num)
-            trailer = movie.videos()['results']
-            movie = movie.info()
-            #add title
-            new_movie += [movie['title']]
-            #add youtube URL
-            processed_url = youtube+trailer['trailer'][0]['key']       
-            new_movie += [processed_url]
-            #add poster path
-            new_movie += [img_url+movie['poster_path']]
-            #add description
-            new_movie += [movie['overview']]
+            trailer = movie.videos()['results'][0]
+            trailer_key = trailer['key']
+            trailer_site = trailer['site']
+            #some movies don't have trailer urls
+            if trailer and trailer_site == 'YouTube':
+                processed_url = youtube+trailer_key
+                movie = movie.info()
+                #add title first
+                new_movie += [movie['title']]
+                #next add youtube URL
+                new_movie += [processed_url]
+                #add poster path
+                new_movie += [img_url+movie['poster_path']]
+                #finally, add description
+                new_movie += [movie['overview']]
             print new_movie
         except:
             attempt += 1
@@ -46,3 +50,4 @@ result = six_random_movies()
  #   six_random_movies()
 
 print result
+print len(result)
