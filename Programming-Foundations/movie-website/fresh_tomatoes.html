@@ -3,9 +3,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Fresh Tomatoes!</title>
+    <title>Six Random Movies</title>
 
     <!-- Bootstrap 3 -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300" rel="stylesheet">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -49,6 +50,10 @@
             left: 0;
             top: 0;
             background-color: white;
+        }
+        .container {
+            font-family: 'Roboto Condensed', sans-serif;
+            
         }
     </style>
     <script type="text/javascript" charset="utf-8">
@@ -97,41 +102,48 @@
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">Fresh Tomatoes Movie Trailers</a>
+            <a class="navbar-brand" href="#">Six Random Movies</a>
           </div>
         </div>
       </div>
     </div>
     <div class="container">
+        <p>Using the <a href="https://pypi.python.org/pypi/tmdbsimple">TMDBSimple API Wrapper</a> for
+            <a href="https://www.themoviedb.org/documentation/api">The Movie DB API</a>
+             and the <a href="https://docs.python.org/2/library/random.html">Random</a> python library, 
+              this page chooses six movies completely at random each time
+              <a href="https://github.com/natalieorsi/fullstack-nanodegree/blob/master/Programming-Foundations/movie-website/entertainment_center.py">entertainment_center.py</a>
+               is run and displays their posters and pop-up trailers.</p>
+        <p align="right">Project created by <a href="http://natalieorsi.net">NatalieOrsi.net</a></p>
       
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="8V4dEWPJKNk" data-toggle="modal" data-target="#trailer">
-    <img src="http://image.tmdb.org/t/p/w500/5hqbJSmtAimbaP3XcYshCixuUtk.jpg" width="220" height="342">
-    <h2>Seven Samurai</h2>
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="tGAa8WF0vxo" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w500/myMAaET7kCGSp3vyUcvd8hwTnD6.jpg" width="220" height="342">
+    <h2>The Idiots</h2>
 </div>
 
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="9gQuxMD5jzU" data-toggle="modal" data-target="#trailer">
-    <img src="http://image.tmdb.org/t/p/w500/ce0d4kM5KxT4x1Oq8JkSuNYevri.jpg" width="220" height="342">
-    <h2>From Dusk Till Dawn</h2>
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="eTFCFThbwbo" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w500/qoZShHm8QTrHAR80LypwI0SYp8I.jpg" width="220" height="342">
+    <h2>Muriel's Wedding</h2>
 </div>
 
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="qk0XnyrENrE" data-toggle="modal" data-target="#trailer">
-    <img src="http://image.tmdb.org/t/p/w500/9pNo92j6zSEAUB8pNmcJTkpnkBF.jpg" width="220" height="342">
-    <h2>Almost Famous</h2>
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="KepcO8NdVYQ" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w500/vL3OVPep84Pm90h4xOkKnGpl8JE.jpg" width="220" height="342">
+    <h2>Brief Encounter</h2>
 </div>
 
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="VoaMw91MC9k" data-toggle="modal" data-target="#trailer">
-    <img src="http://image.tmdb.org/t/p/w500/hA9kQrIwDHJKl1pt8GpJdDnBzim.jpg" width="220" height="342">
-    <h2>Dracula</h2>
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="Kw3IQpnVtvo" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w500/sKogjhfs5q3azmpW7DFKKAeLEG8.jpg" width="220" height="342">
+    <h2>The Matrix Revolutions</h2>
 </div>
 
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="2DwNb-ZGVjE" data-toggle="modal" data-target="#trailer">
-    <img src="http://image.tmdb.org/t/p/w500/ikYpJ0AjGBNnAYFnPJDUVIOcduR.jpg" width="220" height="342">
-    <h2>Total Recall</h2>
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="a9UPOkIpR0A" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w500/zYtgDRSOQeZmGbHkXff5CcEg05g.jpg" width="220" height="342">
+    <h2>The Birth of a Nation</h2>
 </div>
 
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="T3IjmIOBIIE" data-toggle="modal" data-target="#trailer">
-    <img src="http://image.tmdb.org/t/p/w500/czSf8d6QJXUqdj0CVuYJZNPqbfp.jpg" width="220" height="342">
-    <h2>Not Here to Be Loved</h2>
+<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="8TB5J_sbCbE" data-toggle="modal" data-target="#trailer">
+    <img src="http://image.tmdb.org/t/p/w500/kugwPq2E5IkzrgoxRycnoqqUS9H.jpg" width="220" height="342">
+    <h2>Star Trek V: The Final Frontier</h2>
 </div>
 
     </div>

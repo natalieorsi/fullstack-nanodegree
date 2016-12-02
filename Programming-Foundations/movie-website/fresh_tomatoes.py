@@ -9,9 +9,10 @@ main_page_head = '''
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Fresh Tomatoes!</title>
+    <title>Six Random Movies</title>
 
     <!-- Bootstrap 3 -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300" rel="stylesheet">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -55,6 +56,10 @@ main_page_head = '''
             left: 0;
             top: 0;
             background-color: white;
+        }
+        .container {
+            font-family: 'Roboto Condensed', sans-serif;
+            
         }
     </style>
     <script type="text/javascript" charset="utf-8">
@@ -107,12 +112,19 @@ main_page_content = '''
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">Fresh Tomatoes Movie Trailers</a>
+            <a class="navbar-brand" href="#">Six Random Movies</a>
           </div>
         </div>
       </div>
     </div>
     <div class="container">
+        <p>Using the <a href="https://pypi.python.org/pypi/tmdbsimple">TMDBSimple API Wrapper</a> for
+            <a href="https://www.themoviedb.org/documentation/api">The Movie DB API</a>
+             and the <a href="https://docs.python.org/2/library/random.html">Random</a> python library, 
+              this page chooses six movies completely at random each time
+              <a href="https://github.com/natalieorsi/fullstack-nanodegree/blob/master/Programming-Foundations/movie-website/entertainment_center.py">entertainment_center.py</a>
+               is run and displays their posters and pop-up trailers.</p>
+        <p align="right">Project created by <a href="http://natalieorsi.net">NatalieOrsi.net</a></p>
       {movie_tiles}
     </div>
   </body>
