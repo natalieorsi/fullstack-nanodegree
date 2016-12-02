@@ -40,6 +40,7 @@ def six_random_movies():
                 new_movie += [processed_url]
                                 
         except:
+            #limited number of attempts to lower burden on TMDB server
             attempt += 1
         #final check to ensure all information is present
         if len(new_movie) == 4: 
