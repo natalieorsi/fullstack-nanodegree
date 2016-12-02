@@ -4,6 +4,45 @@
 	-ms-box-sizing: border-box;
 	box-sizing: border-box;
 }
-h1{
-	color: green;
+.row{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+.col-1{
+	width: 8.33%;
+}
+
+.col-2{
+	width: 16.67%;
+}
+.col-3{
+	width: 25.0%;
+}
+.col-4{
+	width: 33.33%;
+}
+.col-5{
+	width: 41.67%;
+}
+.col-6{
+	width: 50.0%;
+}
+.col-7{
+	width: 58.33%;
+}
+.col-8{
+	width: 66.67%;
+}
+.col-9{
+	width: 75.0%;
+}
+.col-10{
+	width: 83.33%;
+}
+.col-11{
+	width: 91.67%;
+}
+.col-12{
+	width: 100.0%;
 }
