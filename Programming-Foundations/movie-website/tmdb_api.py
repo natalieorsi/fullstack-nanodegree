@@ -38,16 +38,13 @@ def six_random_movies():
                 new_movie += [img_url+movie['poster_path']]
                 #finally, add description
                 new_movie += [movie['overview']]
-            print new_movie
         except:
             attempt += 1
-            print attempt
         if len(new_movie) == 4:
             movies += [new_movie]
     return movies
 result = six_random_movies()
-#while result < 6:
- #   six_random_movies()
+while len(result) < 6:
+ result = six_random_movies()
 
-print result
-print len(result)
+print result[0]
