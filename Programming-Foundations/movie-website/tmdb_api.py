@@ -9,7 +9,7 @@ This code will not run without an API key from The Movie DB!
 import tmdbsimple as tmdb
 import random
 #be sure to download the tmdbsimple lib using pip install tmdbsimple
-
+#tmdb.API_KEY = 'Your API key here'
 youtube = 'http://www.youtube.com/watch?v='
 img_url = 'http://image.tmdb.org/t/p/w500'
 
@@ -41,9 +41,11 @@ def six_random_movies():
                                 
         except:
             attempt += 1
-        if len(new_movie) == 4:
+        #final check to ensure all information is present
+        if len(new_movie) == 4: 
             movies += [new_movie]
     return movies
 result = six_random_movies()
+#one likely redundant final check to ensure 6 movies have been found
 while len(result) < 6:
  result = six_random_movies()
