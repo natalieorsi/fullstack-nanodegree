@@ -1,0 +1,17 @@
+body {
+	font-family: 'Amatic SC', cursive;
+	font-color: #fff;
+}
+.font-super{
+	font-family: 'Pacifico', cursive;
+}
+.ninja{
+	font-variant-caps: all;
+	font-size:25px;
+}
+.modal-body{
+	font-family: 'Arial', sans-serif;
+	font-size: 20px;
+	text-align: center;
+	align-items: center;
+}
