@@ -25,7 +25,6 @@ ul {
   margin: 0;
 }
 
-
 /*
  *
  * Common
@@ -132,10 +131,6 @@ main {
  *
  */
 
-
-img, embed, object, video{
-max-width: 100%;
-}
 
 /*
  *
@@ -373,4 +368,16 @@ footer li {
 footer a {
   text-decoration: none;
   color: #333;
+}
+
+
+/*
+*
+* Responsive
+*
+*/
+
+
+img, embed, object, video{
+max-width: 100%;
 }
