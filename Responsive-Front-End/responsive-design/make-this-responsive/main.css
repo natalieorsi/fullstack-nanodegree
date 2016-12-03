@@ -123,6 +123,7 @@ main {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  text-overflow: ellipsis;
 }
 
 /*
@@ -144,6 +145,7 @@ main {
   background-image: url("./images/dog.jpg");
   background-size: cover;
   height: 300px;
+
 }
 
 .hero article {
@@ -378,21 +380,38 @@ img, embed, object, video{
 max-width: 100%;
 }
 
+/*
+*
+* Phone display: links bigger
+*
+*/
+@media only screen and (max-width: 500px) {
+  .a{
+    font-size: 48px;
+  }
+}
+
+/*
+*
+* Designing for larger displays last
+*
+*/
+
 @media only screen and (min-width: 810px) {
   .hero{
     float: left;
-    width: 480px;
+    width: 60%;
   }
   .top-news{
     float: right;
-    width: 320px;
+    width: 40%;
   }
   .weather{
     float: right;
-    width: 320px;
+    width: 40%;
   }
   .scores{
-    width: 480px;
+    width: 60%;
     float: left;
   }
   body{
