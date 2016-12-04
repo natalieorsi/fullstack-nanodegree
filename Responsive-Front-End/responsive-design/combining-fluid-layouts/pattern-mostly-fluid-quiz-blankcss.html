@@ -69,9 +69,22 @@
         width: 100%;
       }
 
-      @media screen and (max-width: 400px) {
-        .box {
-          color: red;
+      @media screen and (min-width: 450px) {
+        .light_blue, .green {
+          width: 50%;
+        }
+      @media screen and (min-width: 550px) {
+        .red {
+          width: 33.33%;
+        }
+        .orange {
+        	width: 66.66%;
+        }
+      @media screen and (min-width: 800px) {
+        .container {
+          max-width: 800px;
+          margin-right: auto;
+          margin-left: auto;
         }
       }
     </style>
