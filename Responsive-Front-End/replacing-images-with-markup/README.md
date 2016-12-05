@@ -35,7 +35,8 @@ You can achieve some pretty fantastic background images using CSS.
       background-color: #131313;
       background-size: 20px 20px;
     }
-  </style>```
+  </style>
+  ```
 
 More examples:
 * [Div with background image](http://udacity.github.io/responsive-images/examples/2-06/divWithBackgroundImage)
