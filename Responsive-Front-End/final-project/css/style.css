@@ -1,13 +1,12 @@
 body {
 	font-family: 'Lato', sans-serif;
-	font-color: #fff;
+	color: #2d3c49;
 }
 
 .modal-body{
 	font-family: 'Arial', sans-serif;
-	font-size: 20px;
+	font-size: 2vmin;
 	text-align: center;
-	align-items: center;
 }
 
 img, embed, object, video{
@@ -21,11 +20,51 @@ h1 {
 
 h2 {
 	font-weight: 300;
-	color: #aaa;
+	color: #7d97ad;
 
+}
+
+h3 {
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-bottom: 2%;
 }
 
 h5{
 	text-transform: uppercase;
 	font-weight: bold;
 }
+
+p{
+	font-size: 3vh;
+}
+
+#logo {
+	max-height: 50vw;
+	margin-top: 1%;
+}
+
+@media screen and (max-width: 400px) {
+  h3 {
+  	font-size: 5vw;
+  	text-overflow: clip;
+  	margin-left: auto;
+  	margin-right: auto;
+  }
+  h1 {
+  	font-size: 8vmin;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  main, body {
+    width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+	p{
+	font-size: 2vmin;
+	}
+
+}
+
