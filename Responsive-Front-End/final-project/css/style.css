@@ -1,20 +1,31 @@
 body {
-	font-family: 'Amatic SC', cursive;
+	font-family: 'Lato', sans-serif;
 	font-color: #fff;
 }
-.font-super{
-	font-family: 'Pacifico', cursive;
-}
-.ninja{
-	font-variant-caps: all;
-	font-size:25px;
-}
+
 .modal-body{
 	font-family: 'Arial', sans-serif;
 	font-size: 20px;
 	text-align: center;
 	align-items: center;
 }
+
 img, embed, object, video{
 	max-width: 100%;
+}
+
+h1 {
+	text-transform: uppercase;
+	font-weight: 100;
+}
+
+h2 {
+	font-weight: 300;
+	color: #aaa;
+
+}
+
+h5{
+	text-transform: uppercase;
+	font-weight: bold;
 }
