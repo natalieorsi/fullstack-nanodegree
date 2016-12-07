@@ -1,13 +1,12 @@
+/*
+	Page-wide rules
+*/
+
 body {
-	font-family: 'Lato', sans-serif;
+	font-family: "Lato", sans-serif;
 	color: #2d3c49;
 	font-size: 3vh;
 
-}
-
-.modal-body{
-	font-weight: bold;
-	text-align: center;
 }
 
 img, embed, object, video{
@@ -41,10 +40,23 @@ h5{
 	font-weight: bold;
 }
 
+/*
+	Element-specific rules
+*/
+
 #logo {
 	max-height: 50vw;
 	margin-top: 1%;
 }
+
+.modal-body{
+	font-weight: bold;
+	text-align: center;
+}
+
+/*
+	Media screen size for responsive design
+*/
 
 @media screen and (min-width: 800px) {
 	main, body {
@@ -58,4 +70,3 @@ h5{
 	}
 
 }
-
