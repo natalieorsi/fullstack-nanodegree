@@ -1,11 +1,12 @@
 body {
 	font-family: 'Lato', sans-serif;
 	color: #2d3c49;
+	font-size: 3vh;
+
 }
 
 .modal-body{
-	font-family: 'Arial', sans-serif;
-	font-size: 2vmin;
+	font-weight: bold;
 	text-align: center;
 }
 
@@ -16,6 +17,7 @@ img, embed, object, video{
 h1 {
 	text-transform: uppercase;
 	font-weight: 100;
+  	font-size: 8vmin;
 }
 
 h2 {
@@ -28,6 +30,10 @@ h3 {
 	text-transform: uppercase;
 	font-weight: bold;
 	margin-bottom: 2%;
+	font-size: 5vw;
+  	text-overflow: clip;
+  	margin-left: auto;
+  	margin-right: auto;
 }
 
 h5{
@@ -35,35 +41,20 @@ h5{
 	font-weight: bold;
 }
 
-p{
-	font-size: 3vh;
-}
-
 #logo {
 	max-height: 50vw;
 	margin-top: 1%;
 }
 
-@media screen and (max-width: 400px) {
-  h3 {
-  	font-size: 5vw;
-  	text-overflow: clip;
-  	margin-left: auto;
-  	margin-right: auto;
-  }
-  h1 {
-  	font-size: 8vmin;
-  }
-}
-
 @media screen and (min-width: 800px) {
-  main, body {
-    width: 850px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-	p{
-	font-size: 2vmin;
+	main, body {
+    	width: 850px;
+    	margin-left: auto;
+    	margin-right: auto;
+    	font-size: 3vmin;
+	}
+	h3 {
+		font-size: 6vmin;
 	}
 
 }
