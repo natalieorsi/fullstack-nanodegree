@@ -2,44 +2,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta charset="utf-8">
-  <title>Natalie Orsi | Front-End Ninja</title>
-  <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
-  <link rel="stylesheet" href="css/boostrap-theme.css" type="text/css">
-  <link rel="stylesheet" href="css/style.css" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Lato:100,300" rel="stylesheet">
-  <script type="text/javascript" src="js/jquery-3.1.1.slim.js"></script>
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<title>Natalie Orsi | Front-End Ninja</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css">
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Lato:100,300" rel="stylesheet">
+	<script src="js/jquery-3.1.1.slim.js" async></script>
+	<script src="js/bootstrap.min.js" async></script>
+	<!-- Compatibility with older versions of IE -->
+	<script async>
+    	document.createElement('article');
+    	document.createElement('section');
+    	document.createElement('aside');
+    	document.createElement('hgroup');
+    	document.createElement('nav');
+    	document.createElement('header'); 
+    	document.createElement('footer');
+    	document.createElement('figure');
+    	document.createElement('figcaption'); 
+	</script>
+
 </head>
 
 <!-- Top Bar -->
 <body>
 <div class="container-fluid">
-  <div class="row">
+	<header class="row">
 
     <div class="col-xs-4" id="logo">
-      <img src="http://lorempixel.com/100/100" alt="Natalie Orsi Logo">
+    	<img src="http://lorempixel.com/100/100" alt="Natalie Orsi Logo">
     </div>
 
     <div class="col-xs-3">
     </div>
 
     <div class="col-xs-5 text-right" id="name-box">
-      <h1>Natalie Orsi</h1>
-      <h5>Full-Stack Dev &amp; Data Scientist</h5>
+    	<h1>Natalie Orsi</h1>
+    	<h5>Full-Stack Dev &amp; Data Scientist</h5>
     </div>
-  </div>
+  </header>
 
 <!-- Banner -->
   <div class="row">
 
     <div class="col-xs-12">
-      <hr>
-      <img class="img-responsive" src="images/banner.jpg" alt="Banner with crepes and colorful fruits.">
+    	<hr>
+    	<img class="img-responsive" src="images/banner.jpg" alt="Banner with crepes and colorful fruits.">
     </div>
   </div>
-
+  
 
   <div class="row">
     <div class="col-xs-12">
@@ -48,25 +61,31 @@
   </div>
 
 <!-- Projects, with images and links -->
-  <div class="row text-center img-responsive">
+  <section class="row text-center img-responsive">
     <div class="col-md-4">
-      <img class="thumb" src="http://lorempixel.com/300/200/cats" data-toggle="modal" data-target="#appify" alt="Randomly generated thumbnail image of a cat.">
-      <h3>appify</h3>
-      <p><a href="http://github.com/udacity/Appify">github.com/udacity/Appify</a></p>
+    	<img class="thumb" src="http://lorempixel.com/300/200/cats" data-toggle="modal" data-target="#appify" alt="Randomly generated thumbnail image of a cat.">
+    	<h3>appify</h3>
+    	<p>
+    		<a href="http://github.com/udacity/Appify">github.com/udacity/Appify</a>
+    	</p>
     </div>
 
     <div class="col-md-4">
-      <img class="thumb" src="http://lorempixel.com/300/200/nature" data-toggle="modal" data-target="#sunflower" alt="Randomly generated thumbnail image with some nature element.">
-      <h3>sunflower</h3>
-      <p><a href="http://github.com/udacity/Sunflower">github.com/udacity/Sunflower</a></p>
+    	<img class="thumb" src="http://lorempixel.com/300/200/nature" data-toggle="modal" data-target="#sunflower" alt="Randomly generated thumbnail image with some nature element.">
+    	<h3>sunflower</h3>
+    	<p>
+      		<a href="http://github.com/udacity/Sunflower">github.com/udacity/Sunflower</a>
+    	</p>
     </div>
 
     <div class="col-md-4">
-      <img class="thumb" src="http://lorempixel.com/300/200/people" data-toggle="modal" data-target="#bokeh" alt="Randomly-generated thumbnail image with at least one person in it.">
-      <h3>bokeh</h3>
-      <p><a href="http://github.com/udacity/Bokeh">github.com/udacity/Bokeh</a></p>
+    	<img class="thumb" src="http://lorempixel.com/300/200/people" data-toggle="modal" data-target="#bokeh" alt="Randomly-generated thumbnail image with at least one person in it.">
+    	<h3>bokeh</h3>
+    	<p>
+    		<a href="http://github.com/udacity/Bokeh">github.com/udacity/Bokeh</a>
+    	</p>
     </div>
-  </div>
+  </section>
 </div>
 
 

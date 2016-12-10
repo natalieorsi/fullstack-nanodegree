@@ -6,10 +6,12 @@ body {
 	font-family: "Lato", sans-serif;
 	color: #2d3c49;
 	font-size: 3vh;
-
 }
 
-img, embed, object, video{
+img,
+embed,
+object,
+video {
 	max-width: 100%;
 }
 
@@ -22,7 +24,6 @@ h1 {
 h2 {
 	font-weight: 300;
 	color: #7d97ad;
-
 }
 
 h3 {
@@ -35,7 +36,7 @@ h3 {
   	margin-right: auto;
 }
 
-h5{
+h5 {
 	text-transform: uppercase;
 	font-weight: bold;
 }
@@ -49,17 +50,38 @@ h5{
 	margin-top: 1%;
 }
 
-.modal-body{
+.modal-body {
 	font-weight: bold;
 	text-align: center;
 }
+
+/*
+
+Compatibility fix for semantic tags with older browsers
+
+*/
+
+article,
+section,
+aside,
+hgroup,
+nav,
+header,
+footer,
+figure,
+figcaption {
+  display: block;
+}
+
 
 /*
 	Media screen size for responsive design
 */
 
 @media screen and (min-width: 800px) {
-	main, body {
+	
+	main,
+	body {
     	width: 850px;
     	margin-left: auto;
     	margin-right: auto;
