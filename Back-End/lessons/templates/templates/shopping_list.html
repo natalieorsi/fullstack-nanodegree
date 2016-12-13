@@ -1,0 +1,15 @@
+<title>Shopping List</title>
+<form>
+	<h2>Add a Name</h2>
+	<input type="text" name="name">
+	<button>Add</button>
+
+
+	{% if (name=="Guacamole") %}
+		{% for i in range(5) %}	
+			<h2>Hello, {{name}}</h2>
+		{% endfor %}
+	{% else %}
+		Who are you?
+	{% endif %}
+</form>
