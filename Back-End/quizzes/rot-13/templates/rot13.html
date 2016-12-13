@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container">
+	<section class="row" style="text-align: center;">
+		<header class="col-md-12 center">
+			<h1 style="margin-bottom: 10%">ROT13</h1>
+		</header>
+		<div class="col-md-12">
+			<form>
+				<h2>Add a Secret</h2>
+				{% if not inputs %}
+				<textarea name="inputs" style="height: 50%">
+				</textarea>
+				{% else %}
+				<textarea name="inputs" style="height: 50%">
+				{{outputs}}
+				</textarea>
+				{% endif %}
+				<br><br>
+				<button>Submit</button>
+
+			</form>
+			{{inputs}}
+		</div>
+	</section>
+</section>
+{% endblock %}

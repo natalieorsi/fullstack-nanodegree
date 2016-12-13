@@ -30,11 +30,36 @@ class Handler(webapp2.RequestHandler):
 	def render(self, template, **kw):
 		self.write(self.render_str(template, **kw))
 
+	def rot13(self, message):
+		translated = ""
+		message = message[1:len(message)-1]
+		for n in message:
+			if n.isalpha():
+				nord = ord(n)
+				nord += 13
+
+				if n.isupper():
+					if nord > ord('Z'):
+						nord -= 26
+					elif nord < ord('A'):
+						nord += 26
+				elif n.islower():
+					if nord > ord('z'):
+						nord -= 26
+					elif nord < ord('a'):
+						nord += 26
+				translated += chr(nord)
+			else:
+				translated += n
+		return str(translated[0:len(translated)-1])
+
+
 class MainPage(Handler):
 
 	def get(self):
-		items = self.request.get_all("food")
-		self.render("shopping_list.html", items=items)
+		inputs = self.request.get_all("inputs")
+		outputs = self.rot13(inputs)
+		self.render("rot13.html", inputs=inputs, outputs=outputs, title="ROT13")
 
 
 app = webapp2.WSGIApplication([('/', MainPage),
