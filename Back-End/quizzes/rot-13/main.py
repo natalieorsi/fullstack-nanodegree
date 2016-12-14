@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import webapp2, os, jinja2
+import webapp2, os, jinja2, sys
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
@@ -30,30 +30,6 @@ class Handler(webapp2.RequestHandler):
 	def render(self, template, **kw):
 		self.write(self.render_str(template, **kw))
 
-	def rot13(self, message):
-		translated = ""
-		#message = message[1:len(message)-1]
-		for n in message:
-			if n.isalpha():
-				nord = ord(n)
-				nord += 13
-
-				if n.isupper():
-					if nord > ord('Z'):
-						nord -= 26
-					elif nord < ord('A'):
-						nord += 26
-				elif n.islower():
-					if nord > ord('z'):
-						nord -= 26
-					elif nord < ord('a'):
-						nord += 26
-				translated += chr(nord)
-			else:
-				translated += n
-		#return str(translated[0:len(translated)-1])
-		return translated
-
 
 class MainPage(Handler):
 
@@ -64,10 +40,9 @@ class MainPage(Handler):
 		rot13 = ''
 		text = self.request.get('text')
 		if text:
-			rot13 = self.encode('rot13')
+			rot13 = text.encode('rot13')
 
 		self.render("rot13.html", text=rot13, title="ROT13")
-
 
 app = webapp2.WSGIApplication([('/', MainPage),
 							],
