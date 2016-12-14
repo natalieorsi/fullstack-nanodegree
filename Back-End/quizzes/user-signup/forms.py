@@ -1,13 +1,15 @@
 import cgi, re
 
 def valid_email(email):
-  if email and (email contains '.') and (len(email)>4):
-      return True
+  if email:
+      EM_RE = re.compile(r"^[\S]+@[\S]+.[\S]+$")
+      return EM_RE.match(email)
   return False
 
-def valid_password(p1,p2):
-  if (p1 and p2) and (p1 == p2):
-      return True
+def valid_password(p):
+  if p:
+    PW_RE = re.compile(r"^.{3,20}$")
+    return PW_RE.match(p)
   return False
 
 def valid_username(username):

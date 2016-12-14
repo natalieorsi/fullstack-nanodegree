@@ -1,17 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="container">
-	<section class="row" style="text-align: center;">
-		<header class="col-md-12 center">
-			<h1 style="margin-bottom: 10%">Shopping List</h1>
+	<section class="row">
+		<header class="col-md-12">
+			<h1 style="margin-bottom: 10%; text-align: center">{{title}}</h1>
 		</header>
-		<div class="col-md-12 center">
+		<div class="col-md-4"></div>
+		<div class="col-md-4"  style="text-align: right">
 			<form>
-				<h2>{{title}}</h2>
-				<input type="text" name="username">
-				<input type="password" name="password">
-				<input type="text" name="verify">
-				<input type="text" name="email">
+				<h2>Sign up here!</h2>
+				
+				<label> Username&nbsp;
+					<input type="text" name="username"> {{nameerror}}
+				</label><br>
+				<label> Password&nbsp;
+					<input type="password" name="password"> {{pwerror}}
+				</label><br>
+				<label> Verify&nbsp;
+					<input type="password" name="verify"> {{matcherror}}
+				</label><br>
+				<label> Email&nbsp;
+					<input type="text" name="email"> {{emailerror}}
+				</label><br>
 				<button>Sign up!</button>
 				{% if items %}
 				<h3>Your List</h3>
@@ -24,8 +34,8 @@
 					{% endfor %}
 				</ol>
 				{% endif %}
-
 			</form>
+		<div class="col-md-4"></div>
 		</div>
 	</section>
 </section>
