@@ -38,7 +38,7 @@ class MainPage(Handler):
 		#validity tests
 		if not valid_username(user):
 			errors['nameerror'] = "That's not a valid username."
-		if valid_password(p1):
+		if not valid_password(p1):
 			errors['pwerror'] = "That wasn't a valid password."
 		if not p1 == p2:
 			errors['matcherror'] = "Your passwords don't match."
