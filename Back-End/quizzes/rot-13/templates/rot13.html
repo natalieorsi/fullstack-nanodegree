@@ -6,21 +6,13 @@
 			<h1 style="margin-bottom: 10%">ROT13</h1>
 		</header>
 		<div class="col-md-12">
-			<form>
+			<form method="post" action="\">
 				<h2>Add a Secret</h2>
-				{% if not inputs %}
-				<textarea name="inputs" style="height: 50%">
+				<textarea name="text" style="height: 50%" value="{{text}}">
 				</textarea>
-				{% else %}
-				<textarea name="inputs" style="height: 50%">
-				{{outputs}}
-				</textarea>
-				{% endif %}
 				<br><br>
 				<button>Submit</button>
-
 			</form>
-			{{inputs}}
 		</div>
 	</section>
 </section>

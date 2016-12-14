@@ -32,7 +32,7 @@ class Handler(webapp2.RequestHandler):
 
 	def rot13(self, message):
 		translated = ""
-		message = message[1:len(message)-1]
+		#message = message[1:len(message)-1]
 		for n in message:
 			if n.isalpha():
 				nord = ord(n)
@@ -51,15 +51,22 @@ class Handler(webapp2.RequestHandler):
 				translated += chr(nord)
 			else:
 				translated += n
-		return str(translated[0:len(translated)-1])
+		#return str(translated[0:len(translated)-1])
+		return translated
 
 
 class MainPage(Handler):
 
 	def get(self):
-		inputs = self.request.get_all("inputs")
-		outputs = self.rot13(inputs)
-		self.render("rot13.html", inputs=inputs, outputs=outputs, title="ROT13")
+		self.render("rot13.html", title="ROT13")
+
+	def post(self):
+		rot13 = ''
+		text = self.request.get('text')
+		if text:
+			rot13 = self.encode('rot13')
+
+		self.render("rot13.html", text=rot13, title="ROT13")
 
 
 app = webapp2.WSGIApplication([('/', MainPage),
