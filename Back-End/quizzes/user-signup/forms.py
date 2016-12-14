@@ -4,7 +4,7 @@ def valid_email(email):
   if email:
       EM_RE = re.compile(r"^[\S]+@[\S]+.[\S]+$")
       return EM_RE.match(email)
-  return False
+  return True
 
 def valid_password(p):
   if p:
