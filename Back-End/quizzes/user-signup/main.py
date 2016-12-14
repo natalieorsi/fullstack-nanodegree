@@ -1,4 +1,5 @@
 import webapp2, os, jinja2
+from forms import valid_email, valid_password
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
@@ -23,10 +24,13 @@ class MainPage(Handler):
 		self.render("user_signup.html", title=title)
 
 	def post(self):
-		rot13 = ''
-		text = self.request.get('text')
-		if text:
-			rot13 = text.encode('rot13')
+		user = self.request.get('username')
+		p1 = self.request.get('password')
+		p2 = self.request.get('verify')
+		em = self.request.get('email')
+		if password:
+			#why not do a crappy encyption, for fun?
+			rot13 = password.encode('rot13')
 
 		self.render("rot13.html", text=rot13, title=title)
 
