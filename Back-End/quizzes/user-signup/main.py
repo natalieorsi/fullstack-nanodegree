@@ -24,29 +24,31 @@ class MainPage(Handler):
 		self.render("user_signup.html", title=title)
 
 	def post(self):
+		#retrieve information from user
 		user = self.request.get('username')
 		p1 = self.request.get('password')
 		p2 = self.request.get('verify')
 		email = self.request.get('email')
-		nameerror, pwerror, matcherror, emailerror = ""
+
+		#these will be preserved if failure
+		params = {'username': user,
+					'email': email}
+		errors = {} #empty dictionary is False
+		#validity tests
 		if not valid_username(user):
-			nameerror = "That's not a valid username."
+			errors['nameerror'] = "That's not a valid username."
 		if not valid_password(p1):
-			pwerror = "That wasn't a valid password."
+			errors['pwerror'] = "That wasn't a valid password."
 		if not p1 == p2:
-			matcherror = "Your passwords don't match."
+			errors['matcherror'] = "Your passwords don't match."
 		if not valid_email(email):
-			emailerror = "That is not a valid email address."
-		elif not (nameerror or pwerror or matcherror or emailerror):
+			errors['emailerror'] = "That is not a valid email address."
+		
+		if not errors:
 			self.render("thanks.html", title="Thanks!")
 		else:
-			self.render("user_signup.html",
-								title=title,
-								username=user,
-								nameerror=nameerror,
-								pwerror=pwerror,
-								matcherror=matcherror,
-								emailerror=emailerror)
+			params = params.update(errors)
+			self.render("user_signup.html", params)
 
 
 
