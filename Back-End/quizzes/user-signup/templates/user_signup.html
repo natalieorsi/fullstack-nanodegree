@@ -7,7 +7,7 @@
 		</header>
 		<div class="col-md-4"></div>
 		<div class="col-md-4"  style="text-align: right">
-			<form>
+			<form method="post">
 				<h2>Sign up here!</h2>
 				
 				<label> Username&nbsp;
@@ -22,18 +22,7 @@
 				<label> Email&nbsp;
 					<input type="text" name="email" value="{{email}}"> {{emailerror}}
 				</label><br>
-				<button>Sign up!</button>
-				{% if items %}
-				<h3>Your List</h3>
-				<ol>
-					{% for item in items %}
-						<input type="hidden" name="food" value="{{item}}">
-						<li>
-						{{item}}
-						</li>
-					{% endfor %}
-				</ol>
-				{% endif %}
+				<input type="submit">
 			</form>
 		<div class="col-md-4"></div>
 		</div>

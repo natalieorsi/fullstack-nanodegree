@@ -19,7 +19,6 @@ class Handler(webapp2.RequestHandler):
 		self.write(self.render_str(template, **kw))
 
 class MainPage(Handler):
-
 	def get(self):
 		self.render("user_signup.html", title=title)
 
@@ -29,11 +28,12 @@ class MainPage(Handler):
 		p1 = self.request.get('password')
 		p2 = self.request.get('verify')
 		email = self.request.get('email')
+		errors = {}
 
 		#these will be preserved if failure
 		params = {'username': user,
-					'email': email}
-		errors = {} #empty dictionary is False
+					'email': email,
+					'title': title}
 		#validity tests
 		if not valid_username(user):
 			errors['nameerror'] = "That's not a valid username."
