@@ -11,7 +11,7 @@
 				<h2>Sign up here!</h2>
 				
 				<label> Username&nbsp;
-					<input type="text" name="username"> {{nameerror}}
+					<input type="text" name="username" value="{{username}}"> {{nameerror}}
 				</label><br>
 				<label> Password&nbsp;
 					<input type="password" name="password"> {{pwerror}}
@@ -20,7 +20,7 @@
 					<input type="password" name="verify"> {{matcherror}}
 				</label><br>
 				<label> Email&nbsp;
-					<input type="text" name="email"> {{emailerror}}
+					<input type="text" name="email" value="{{email}}"> {{emailerror}}
 				</label><br>
 				<button>Sign up!</button>
 				{% if items %}

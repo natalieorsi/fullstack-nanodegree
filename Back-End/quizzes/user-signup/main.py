@@ -38,9 +38,15 @@ class MainPage(Handler):
 		if not valid_email(email):
 			emailerror = "That is not a valid email address."
 		elif not (nameerror or pwerror or matcherror or emailerror):
-			self.render("thanks.html", title="Thanks!", user=user)
+			self.render("thanks.html", title="Thanks!")
 		else:
-			self.render("user_signup.html", text=rot13, title=title)
+			self.render("user_signup.html",
+								title=title,
+								username=user,
+								nameerror=nameerror,
+								pwerror=pwerror,
+								matcherror=matcherror,
+								emailerror=emailerror)
 
 
 
