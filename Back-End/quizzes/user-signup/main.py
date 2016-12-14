@@ -20,7 +20,8 @@ class Handler(webapp2.RequestHandler):
 
 class MainPage(Handler):
 	def get(self):
-		self.render("user_signup.html", title=title)
+		params = {'title': title}
+		self.render("user_signup.html", **params)
 
 	def post(self):
 		#retrieve information from user
@@ -37,7 +38,7 @@ class MainPage(Handler):
 		#validity tests
 		if not valid_username(user):
 			errors['nameerror'] = "That's not a valid username."
-		if not valid_password(p1):
+		if valid_password(p1):
 			errors['pwerror'] = "That wasn't a valid password."
 		if not p1 == p2:
 			errors['matcherror'] = "Your passwords don't match."
@@ -45,13 +46,19 @@ class MainPage(Handler):
 			errors['emailerror'] = "That is not a valid email address."
 		
 		if not errors:
-			self.render("thanks.html", title="Thanks!")
+			self.redirect("/welcome?username=" + user)
 		else:
-			params = params.update(errors)
-			self.render("user_signup.html", params)
+			params = dict(params.items()+errors.items())
+			self.render("user_signup.html", **params)
 
-
+class Welcome(Handler):
+	def get(self):
+		user = self.request.get('username')
+		if valid_username(user):
+			self.render('thanks.html', username=user, title=title)
+		else:
+			self.redirect('/user_signup.html')
 
 app = webapp2.WSGIApplication([('/', MainPage),
-							],
+							('/welcome', Welcome)],
 							debug=True)
