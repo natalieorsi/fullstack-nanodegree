@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block signup_form %}
+<style type="text/css">
+  #login-area {
+    visibility: hidden;
+  }
+  body {
+    background-color: #666;
+  }
+</style>
+<!-- Modal -->
+<div class="modal show" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a href="/blog"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></a>
+        <h2 class="modal-title" id="myModalLabel">Log in</h4>
+      </div>
+      <div class="modal-body">
+
+<!-- Begin Signin Form -->
+      <form method="post">
+        <table>
+          <tr>
+            <td class="label">
+              Username
+            </td>
+            <td>
+              <input type="text" name="username" value="{{username}}">
+            </td>
+          </tr>
+
+          <tr>
+            <td class="label">
+              Password
+            </td>
+            <td>
+              <input type="password" name="password" value="">
+            </td>
+          </tr>
+        </table>
+
+        <div class="error">
+          {{error}}
+        </div>
+
+<!-- End Signin Form -->
+
+      </div>
+      <div class="modal-footer">
+        <a href="/blog"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></a>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

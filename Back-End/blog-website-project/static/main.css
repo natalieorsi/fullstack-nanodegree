@@ -1,0 +1,125 @@
+body {
+    margin: 0 auto;
+    padding: 10px;
+    color: #333;
+    word-wrap: wrap;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.blog-title {
+    color: #222;
+    font-size: 8vh;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0px;
+    margin-top: 2vh;
+    text-shadow: none;
+}
+
+/*
+    Login area styling
+*/
+
+#login-area {
+    font-size: 2vh;
+    color: #fff;
+    top: 10px;
+    right: 10px;
+    text-align: center;
+    padding-bottom: 10vh;
+    text-shadow: 2px 2px #333;
+    background-image: url("images/mountain2.jpg");
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+.login-link {
+    color: gray;
+    text-decoration: none;
+    text-shadow: none;
+}
+
+.login-link:visited {
+    color: gray;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+/*
+    Blog post styling
+*/
+
+.post-title {
+    font-size: 6vmin;
+    font-weight: bold;
+    font-family: 'Raleway', sans-serif;
+    padding-left: 1%;
+}
+
+#bar {
+    background-color: #9a9ca0;
+    border-bottom: 3px solid #666;
+    margin-top: 0%;
+}
+
+#date {
+    color: #fff;
+    font-size: 3vmin;
+    text-align: right;
+    padding-right: 1%;
+    padding-top: 2%;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
+#post-body {
+    margin-top: 1%;
+    margin-bottom: 3%;
+    border-left: 1px dotted #333;
+    border-right: 1px dotted #333;
+}
+
+/*
+    Forms styling
+*/
+
+.label {
+    color: #000;
+}
+
+.error {
+    color: red;
+    text-align: right;
+}
+
+label {
+  display: block;
+  font-size: 20px;
+  color: #000;
+}
+
+label + label {
+    margin-top: 20px;
+}
+
+input {
+    font-size: 20px;
+    padding: 2px;
+    margin: 2%;
+    font-family: monospace;
+    width: 20vw;
+    text-align: center;
+}
+
+textarea {
+  margin: 2%;
+  width: 100%;
+  height: 50%;
+  font-size: 17px;
+  font-family: monospace;
+}
+
+input[type=submit] {
+  font-size: 24px;
+}

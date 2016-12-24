@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block signup_form %}
+<style type="text/css">
+  #login-area {
+    visibility: hidden;
+  }
+  body {
+    background-color: #666;
+  }
+</style>
+<!-- Modal -->
+<div class="modal show" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a href="/blog"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></a>
+        <h2 class="modal-title" id="myModalLabel">Signup</h4>
+      </div>
+      <div class="modal-body">
+
+<!-- Begin Signup Form -->
+        <form method="post">
+          <table>
+            <tr class="row">
+              <td class="label">
+                Username
+              </td>
+              <td>
+                <input type="text" name="username" value="{{username}}">
+              </td>
+              <td class="error">
+                {{error_username}}
+              </td>
+            </tr>
+
+            <tr>
+              <td class="label">
+                Password
+              </td>
+              <td>
+                <input type="password" name="password" value="">
+              </td>
+              <td class="error">
+                {{error_password}}
+              </td>
+            </tr>
+
+            <tr>
+              <td class="label">
+                Verify Password
+              </td>
+              <td>
+                <input type="password" name="verify" value="">
+              </td>
+              <td class="error">
+                {{error_verify}}
+              </td>
+            </tr>
+
+            <tr>
+              <td class="label">
+                Email (optional)
+              </td>
+              <td>
+                <input type="text" name="email" value="{{email}}">
+              </td>
+              <td class="error">
+                {{error_email}}
+              </td>
+            </tr>
+          </table>
+
+          
+        
+<!-- End Signup Form -->
+
+      </div>
+      <div class="modal-footer">
+        <a href="/blog"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></a>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

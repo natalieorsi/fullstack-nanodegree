@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="http://flaticons.net/icons/Wildlife/Squirrel.png" type="image/x-icon" />
+    <!-- Bootstrap compiled and minified CSS and JavaScript -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <!-- Custom CSS -->
+  <link type="text/css" rel="stylesheet" href="/static/main.css" async>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300|Raleway" rel="stylesheet">
+
+  <title>Bloggerly - Sample Blog Hosting Website by Natalie Orsi</title>
+</head>
+
+<body>
+<div class="container">
+  <!-- Title, Banner and Login -->
+  <header class="row" id="login-area">
+    <div class="col-md-4 left">
+    </div>
+    <div class="col-md-4">
+      <a href="/blog" class="blog-title">
+        Bloggerly
+      </a>
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-12">
+      {% if user %}
+
+        <span class="login-link">Welcome back, </span>{{user.name}} <a class="login-link" href="/logout">(logout)</a>
+        <br><a href="/blog/newpost"><sup>new post</sup></a>
+
+      {% else %}
+        <a href="/login"><button type="button" class="btn btn-primary btn-sm">Log in</button></a>
+        <span class="login-link">or</span>
+        <!-- Button trigger modal -->
+        <a href="/signup"><button type="button" class="btn btn-primary btn-sm">
+         Sign up
+        </button>
+        </a>
+      {% endif %}
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+    {% block content %}
+    {% endblock %}
+    </main>
+
+    <!-- Signup Form -->
+    {% block signup_form %}
+    {% endblock %}
+</div>
+</body>
+
+</html>
+

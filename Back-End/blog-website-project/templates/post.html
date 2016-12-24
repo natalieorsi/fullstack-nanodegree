@@ -1,0 +1,13 @@
+<section class="row" id="bar">
+  <div class="col-md-10">
+      <span class="post-title">{{p.subject}}</span>
+  </div>
+  <div class="col-md-2" id="date">
+    <a href="/blog/{{p.key().id()}}">permalink</a> | {{p.created.strftime("%b %d, %Y")}}
+  </div>
+</section>
+<section class="row">
+<div class="col-md-12" id="post-body">
+  {{p._render_text | safe}}
+</div>
+</section>
