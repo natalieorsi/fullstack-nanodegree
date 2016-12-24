@@ -4,7 +4,7 @@
   <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="http://flaticons.net/icons/Wildlife/Squirrel.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="/static/images/christmas.svg" type="image/x-icon" />
     <!-- Bootstrap compiled and minified CSS and JavaScript -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -21,15 +21,15 @@
 <div class="container">
   <!-- Title, Banner and Login -->
   <header class="row" id="login-area">
-    <div class="col-md-4 left">
+    <div class="col-sm-4 left">
     </div>
-    <div class="col-md-4">
+    <div class="col-sm-4">
       <a href="/blog" class="blog-title">
         Bloggerly
       </a>
     </div>
-    <div class="col-md-4"></div>
-    <div class="col-md-12">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-12">
       {% if user %}
 
         <span class="login-link">Welcome back, </span>{{user.name}} <a class="login-link" href="/logout">(logout)</a>
