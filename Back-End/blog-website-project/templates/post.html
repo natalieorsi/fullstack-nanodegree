@@ -1,6 +1,6 @@
 <section class="row" id="bar">
   <div class="col-md-10">
-      <span class="post-title">{{p.subject}}</span>
+       <a href="/blog/{{p.key().id()}}"><span class="post-title">{{p.subject}}</span></a>
   </div>
   <div class="col-md-2" id="date">
     <a href="/blog/{{p.key().id()}}">permalink</a> | {{p.created.strftime("%b %d, %Y")}}
