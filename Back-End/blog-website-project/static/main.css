@@ -39,14 +39,6 @@ body {
     text-shadow: none;
 }
 
-.login-link:visited {
-    color: gray;
-}
-
-.login-link:hover {
-    text-decoration: underline;
-}
-
 /*
     Blog post styling
 */
@@ -56,12 +48,14 @@ body {
     font-weight: bold;
     font-family: 'Raleway', sans-serif;
     padding-left: 1%;
+    color: #e3e5f2;
 }
 
 #bar {
-    background-color: #9a9ca0;
+    background-color: #373b35;
     border-bottom: 3px solid #666;
     margin-top: 0%;
+    border-bottom-left-radius: 6px;
 }
 
 #date {
@@ -80,17 +74,26 @@ body {
     border-right: 1px dotted #333;
 }
 
+a {
+    color: #c2d3eb;
+}
+
+a:hover {
+    color: #e3e5f2;
+    text-decoration: none;
+}
 /*
     Forms styling
 */
 
-.label {
+#label {
     color: #000;
 }
 
-.error {
+#error {
     color: red;
-    text-align: right;
+    padding-left: 2%;
+    font-size: 13px;
 }
 
 label {
@@ -104,11 +107,11 @@ label + label {
 }
 
 input {
-    font-size: 20px;
+    font-size: 3vh;
     padding: 2px;
     margin: 2%;
     font-family: monospace;
-    width: 20vw;
+    width: 30vw;
     text-align: center;
 }
 

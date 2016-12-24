@@ -64,7 +64,7 @@ def render_post(response, post):
 
 ##### User Creation #####
 def make_salt(length = 5):
-    return ''.join(random.choice(letters) for x in xrange(length))
+    return ''.join(random.choice(letters) for x in range(length))
 
 def make_pw_hash(name, pw, salt = None):
     if not salt:
@@ -162,7 +162,7 @@ class NewPost(BlogHandler):
             curr_post.put()
             self.redirect('/blog/%s' % str(curr_post.key().id()))
         else:
-            error = "subject and content, please!"
+            error = "Please finish writing your title and text."
             self.render("newpost.html", subject=subject, content=content, error=error)
 
 USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
