@@ -4,6 +4,7 @@ body {
     color: #333;
     word-wrap: wrap;
     font-family: 'Open Sans', sans-serif;
+    width: 100%;
 }
 
 .blog-title {
@@ -14,6 +15,11 @@ body {
     margin-bottom: 0px;
     margin-top: 2vh;
     text-shadow: none;
+}
+
+.row {
+    width: 100%;
+    margin: auto;
 }
 
 /*
@@ -31,12 +37,14 @@ body {
     background-image: url("images/mountain2.jpg");
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
+    height: 25vh;
 }
 
 .login-link {
     color: #333;
     text-decoration: none;
     text-shadow: none;
+    font-weight: bold;
 }
 
 /*
@@ -44,7 +52,7 @@ body {
 */
 
 .post-title {
-    font-size: 6vmin;
+    font-size: 5vmin;
     font-weight: bold;
     font-family: 'Raleway', sans-serif;
     padding-left: 1%;
@@ -56,6 +64,7 @@ body {
     border-bottom: 3px solid #666;
     margin-top: 0%;
     border-bottom-left-radius: 6px;
+    height: 15vh;
 }
 
 #date {
@@ -76,12 +85,14 @@ body {
 
 a {
     color: #c2d3eb;
+    font-weight: normal;
 }
 
 a:hover {
     color: #e3e5f2;
     text-decoration: none;
 }
+
 /*
     Forms styling
 */
