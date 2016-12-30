@@ -1,8 +1,8 @@
-import os, re, random, hashlib, hmac, webapp2, jinja2
+import os, random, hashlib, webapp2, jinja2
 from google.appengine.ext import db
 from string import letters
 from convenience import render_str
-from secure import check_secure_val
+from secure import check_secure_val, valid_username, valid_password, valid_email
 from users import User
 from post import Post
 
@@ -10,36 +10,63 @@ from post import Post
 
 class BlogHandler(webapp2.RequestHandler):
     def write(self, *a, **kw):
+        """
+            Write output to browser.
+        """
         self.response.out.write(*a, **kw)
 
     def render_str(self, template, **params):
+        """
+            Render HTML string.
+        """
         params['user'] = self.user
         return render_str(template, **params)
 
     def render(self, template, **kw):
+        """
+            Renders HTML using Jinja, based on template.
+        """
         self.write(self.render_str(template, **kw))
 
     def set_cookie(self, name, val):
+        """
+            Sends new cookie to browser.
+        """
         cookiev = make_secure_val(val)
         self.response.headers.add_header('Set-Cookie',
             '%s=%s; Path=/' % (name, cookiev))
 
     def read_cookie(self, name):
+        """
+            Reads stored cookie from browser.
+        """
         cookiev = self.request.cookies.get(name)
         return cookiev and check_secure_val(cookiev)
 
     def login(self, user):
+        """
+           Activates cookie storage for verified user. 
+        """
         self.set_cookie('user_id', str(user.key().id()))
 
     def logout(self):
+        """
+            Removes user login cookie from client browser.
+        """
         self.response.headers.add_header('Set-Cookie', 'user_id=; Path=/')
 
-    def initialize(self, *a, **kw): #Spez's fix for ensuring cookie is stored in user object
+    def initialize(self, *a, **kw):
+        """
+            Spez's fix for ensuring cookie is stored in user object on page render.
+        """
         webapp2.RequestHandler.initialize(self, *a, **kw)
         userid = self.read_cookie('user_id')
         self.user = userid and User.by_id(int(userid))
 
 def render_post(response, post):
+        """
+           Renders post data. 
+        """
     response.out.write(post.subject)
     response.out.write(post.content)
 
@@ -48,17 +75,26 @@ def render_post(response, post):
 ##### Blog Posts #####
 
 def blog_key(name = 'default'):
+    """
+        Store blog key information.
+    """
     return db.Key.from_path('blogs', name)
 
 #Front page handler
 class Front(BlogHandler):
     def get(self):
+        """
+            Renders home page with posts sorted by date descending.
+        """
         posts = greetings = Post.all().order('-created')
         self.render('front.html', posts = posts)
 
 #Blog post page handler
 class PostPage(BlogHandler):
     def get(self, post_id):
+        """
+           Renders post page with all content. 
+        """
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
 
@@ -71,12 +107,18 @@ class PostPage(BlogHandler):
 #Post submission page
 class NewPost(BlogHandler):
     def get(self):
+        """
+           Renders post submission page only if user is logged in. 
+        """
         if self.user:
             self.render("newpost.html")
         else:
             self.redirect("/login")
 
     def post(self):
+        """
+           Submits post if all forms are complete. 
+        """
         if not self.user:
             self.redirect('/blog') #no anonymous posts allowed!
 
@@ -92,23 +134,17 @@ class NewPost(BlogHandler):
             error = "Please finish writing your title and text."
             self.render("newpost.html", subject=subject, content=content, error=error)
 
-USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
-def valid_username(username):
-    return username and USER_RE.match(username)
-
-PASS_RE = re.compile(r"^.{3,20}$")
-def valid_password(password):
-    return password and PASS_RE.match(password)
-
-EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
-def valid_email(email):
-    return not email or EMAIL_RE.match(email)
-
 class Register(BlogHandler):
     def get(self):
+        """
+           Renders registration page. 
+        """
         self.render("signup-form.html")
 
     def post(self):
+        """
+           Verifies correct registration criteria and submits new user. 
+        """
         have_error = False
         self.username = self.request.get('username')
         self.password = self.request.get('password')
