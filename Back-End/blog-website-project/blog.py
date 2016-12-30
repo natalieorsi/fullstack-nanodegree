@@ -70,8 +70,6 @@ def render_post(response, post):
     response.out.write(post.subject)
     response.out.write(post.content)
 
-
-
 ##### Blog Posts #####
 
 def blog_key(name = 'default'):
@@ -176,7 +174,9 @@ class Register(BlogHandler):
 
     def done(self):
         u = User.by_name(self.username)
-        #make sure the user doesn't already exist
+        """
+           Make sure the user doesn't already exist. 
+        """
         if u:
             msg = 'Sorry, that username is taken.'
             self.render('signup-form.html', error_username = msg)
@@ -189,9 +189,15 @@ class Register(BlogHandler):
 
 class Login(BlogHandler):
     def get(self):
+        """
+           Render login form. 
+        """
         self.render('login-form.html')
 
     def post(self):
+        """
+           Logs user in. 
+        """
         username = self.request.get('username')
         password = self.request.get('password')
 
@@ -205,6 +211,9 @@ class Login(BlogHandler):
 
 class Logout(BlogHandler):
     def get(self):
+        """
+           Logs user out.
+        """
         self.logout()
         self.redirect('/blog')
 
