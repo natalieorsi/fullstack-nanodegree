@@ -64,9 +64,9 @@ class BlogHandler(webapp2.RequestHandler):
         self.user = userid and User.by_id(int(userid))
 
 def render_post(response, post):
-        """
-           Renders post data. 
-        """
+    """
+       Renders post data. 
+    """
     response.out.write(post.subject)
     response.out.write(post.content)
 
