@@ -2,7 +2,7 @@ import os, random, hashlib, webapp2, jinja2
 from google.appengine.ext import db
 from string import letters
 from convenience import render_str
-from secure import check_secure_val, valid_username, valid_password, valid_email
+from secure import make_secure_val, check_secure_val, valid_username, valid_password, valid_email
 from users import User
 from post import Post
 
@@ -122,16 +122,55 @@ class NewPost(BlogHandler):
 
         subject = self.request.get('subject')
         content = self.request.get('content')
-        author = self.request.get(self.user)
+        author = self.user.key().id()
 
         if subject and content:
-            curr_post = Post(parent = blog_key(), subject = subject, content = content)
+            curr_post = Post(parent = blog_key(), subject = subject, content = content, author = author)
             curr_post.put()
             self.redirect('/blog/%s' % str(curr_post.key().id()))
         else:
             error = "Please finish writing your title and text."
             self.render("newpost.html", subject=subject, content=content, error=error)
 
+#Post edit page
+class EditPost(BlogHandler):
+    def get(self, post_id):
+        """
+            Verifies user and renders post edit page.
+        """
+        if self.user:
+            post = db.get(db.Key.from_path("Post", int(post_id), parent=blog_key()))
+
+            if post.author == self.user.key().id():
+                self.render("editpost.html", subject=post.subject, content=post.content)
+            else:
+                self.redirect("/blog/" + post_id + "?error=access-denied")
+
+        else:
+            self.redirect("/login?error=unregistered-user-error")
+
+    def post(self, post_id):
+        """
+            Changes post information.
+        """
+        if not self.user:
+            self.redirect('/blog')
+
+        subject = self.request.get('subject')
+        content = self.request.get('content')
+
+        if subject and content:
+            post = db.get(db.Key.from_path('Post', int(post_id), parent=blog_key()))
+            post.subject = subject
+            post.content = content
+            post.put()
+            self.redirect('/blog/%s' % post_id)
+        else:
+            error = "Please don't leave any field blank."
+            self.render("editpost.html", subject=subject,
+                        content=content, error=error)
+
+#User registration handler.
 class Register(BlogHandler):
     def get(self):
         """
@@ -224,5 +263,6 @@ app = webapp2.WSGIApplication([('/', Front),
                                ('/signup', Register),
                                ('/login', Login),
                                ('/logout', Logout),
+                               ('/blog/([0-9]+)/edit', EditPost),
                                ],
                               debug=True)

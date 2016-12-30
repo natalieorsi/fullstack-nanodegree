@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style type="text/css">
+  #login-area {
+    visibility: hidden;
+  }
+  body {
+    background-color: #666;
+  }
+</style>
+<!-- Modal -->
+<div class="modal show" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a href="/blog"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></a>
+        <h2 class="modal-title" id="myModalLabel">Edit Post {{subject}}</h4>
+      </div>
+      <div class="modal-body">
+
+<!-- Begin Edit Post Form -->
+
+<form method="post" role="form">
+      <label>
+        <div>subject</div>
+        <input type="text" name="subject" value="{{subject}}">
+      </label>
+
+      <label>
+        <div>blog</div>
+        <textarea name="content">{{content}}</textarea>
+      </label>
+
+           
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                {{error}}
+            </div>
+            {% endif %}
+
+<!-- End Edit Post Form -->
+
+      </div>
+      <div class="modal-footer">
+        <a href="/blog"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></a>
+        <button type="submit" class="btn btn-success">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,5 +1,5 @@
 from google.appengine.ext import db
-from secure import users_key
+from secure import *
 ##### User Creation #####
 
 class User(db.Model): #I really liked Udacity's implementation of the @classmethods here

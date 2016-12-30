@@ -3,9 +3,10 @@
        <a href="/blog/{{p.key().id()}}"><span class="post-title">{{p.subject}}</span></a>
   </div>
   <div class="col-sm-4" id="date">
-    <a href="/blog/{{p.key().id()}}">permalink</a> | {{p.created.strftime("%b %d, %Y")}}
+    <a href="/blog/{{p.key().id()}}">permalink</a> |<a href="/blog/{{p.key().id()}}/edit">edit</a> | {{p.created.strftime("%b %d, %Y")}}
   </div>
 </section>
+<section class="row"></section>
 <section class="row">
 <div class="col-sm-12" id="post-body">
   {{p._render_text | safe}}
