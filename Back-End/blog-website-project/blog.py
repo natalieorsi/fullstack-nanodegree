@@ -1,29 +1,8 @@
 import os, re, random, hashlib, hmac, webapp2, jinja2
 from google.appengine.ext import db
 from string import letters
-
-template_dir = os.path.join(os.path.dirname(__file__), 'templates')
-jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
-                               autoescape = True)
-
-# def create_password(length = 100, characters = (string.punctuation + string.ascii_letters + string.digits)):
-#     return ''.join(random.choice(characters) for i in range(length))
-
-secret = '[=||*!G!n+l.@S@0lY7ls?{4"iES~AOdXQB&0$f17lsmz<}:tTg;hkmvDQ}.g_9H"8GI7r_^@A6?}0~jL_ssCX=NpoM?\cMZA6r8'
-
-#####Security and Jinja#####
-
-def render_str(template, **params):
-    t = jinja_env.get_template(template)
-    return t.render(params)
-
-def make_secure_val(val):
-    return '%s|%s' % (val, hmac.new(secret, val).hexdigest())
-
-def check_secure_val(secure_val):
-    val = secure_val.split('|')[0]
-    if secure_val == make_secure_val(val):
-        return val
+from convenience import render_str
+from secure import check_secure_val, make_secure_val
 
 #####Blog Handler#####
 
@@ -156,6 +135,7 @@ class NewPost(BlogHandler):
 
         subject = self.request.get('subject')
         content = self.request.get('content')
+        author = self.request.get(self.user)
 
         if subject and content:
             curr_post = Post(parent = blog_key(), subject = subject, content = content)
