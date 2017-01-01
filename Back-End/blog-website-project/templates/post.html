@@ -2,11 +2,24 @@
   <div class="col-sm-8">
        <a href="/blog/{{p.key().id()}}"><span class="post-title">{{p.subject}}</span></a>
   </div>
-  <div class="col-sm-4" id="date">
-    <a href="/blog/{{p.key().id()}}">permalink</a> |<a href="/blog/{{p.key().id()}}/edit">edit</a> | {{p.created.strftime("%b %d, %Y")}}
-  </div>
+  <!-- Menu -->
+  <nav class="col-sm-4" id="date">
+    <a href="/blog/{{p.key().id()}}">permalink</a> &nbsp;|&nbsp;
+
+    <a href="/blog/{{p.key().id()}}/edit">edit</a> &nbsp;|&nbsp;
+    
+    {{p.created.strftime("%b %d, %Y")}}
+
+
+  </nav>
 </section>
-<section class="row"></section>
+<section class="row">{% if error %}
+	<div class="alert alert-danger" role="alert">
+	    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	    {{error}}
+	</div>
+	{% endif %}
+</section>
 <section class="row">
 <div class="col-sm-12" id="post-body">
   {{p._render_text | safe}}
