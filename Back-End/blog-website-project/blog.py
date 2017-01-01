@@ -84,7 +84,7 @@ class Front(BlogHandler):
         """
             Renders home page with posts sorted by date descending.
         """
-        posts = greetings = Post.all().order('-created')
+        posts = Post.all().order('-created')
         self.render('front.html', posts = posts)
 
 #Blog post page handler
@@ -144,10 +144,11 @@ class EditPost(BlogHandler):
             if post.author == self.user.key().id():
                 self.render("editpost.html", subject=post.subject, content=post.content)
             else:
-                self.redirect("/blog/" + post_id + "?error=access-denied")
+                self.render("permalink.html", post = post, error="You didn't make this post, so you can't edit it.")
+                #self.redirect("/blog/" + post_id + "?error=access-denied")
 
         else:
-            self.redirect("/login?error=unregistered-user-error")
+            self.render("login-form.html", error="You must log in to edit your posts.")
 
     def post(self, post_id):
         """
@@ -170,7 +171,22 @@ class EditPost(BlogHandler):
             self.render("editpost.html", subject=subject,
                         content=content, error=error)
 
-#User registration handler.
+#Delete posts
+class DeletePost(BlogHandler):
+    def get(self, post_id):
+        post = db.get(db.Key.from_path('Post', int(post_id), parent=blog_key()))
+        if self.user:
+            if post.author == self.user.key().id():
+                post.delete()
+                self.redirect("/blog/")
+
+            else:
+                self.render("permalink.html", post = post, error="You didn't make this post, so you can't delete it.")
+
+        else:
+            self.render("permalink.html", post = post, error="You are not logged in, so you cannot delete posts.")
+
+#User registration handler
 class Register(BlogHandler):
     def get(self):
         """
@@ -264,5 +280,6 @@ app = webapp2.WSGIApplication([('/', Front),
                                ('/login', Login),
                                ('/logout', Logout),
                                ('/blog/([0-9]+)/edit', EditPost),
+                               ('/blog/([0-9]+)/delete', DeletePost),
                                ],
                               debug=True)

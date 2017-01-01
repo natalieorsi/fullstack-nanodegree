@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+	{% if error %}
+	<div class="alert alert-danger" role="alert">
+	    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	    {{error}}
+	</div>
+	{% endif %}
 
   {% for p in posts %}
 	    {{ p.render() | safe }}
