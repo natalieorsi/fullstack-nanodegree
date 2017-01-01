@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<!-- Warnings -->
 {% if error %}
 <br>
 	<div class="alert alert-danger" role="alert">
@@ -8,11 +10,40 @@
 	    {{error}}
 	</div>
 {% endif %}
+
+<!--Post-->
   {{post.render() | safe}}
-  <!-- Menu -->
- <section class="row" id="bar">
-  <nav class="col-sm-4" id="date"><br><br>
-    <a href="/blog/{{post.key().id()}}/delete">delete?</a>
-  </nav>
-</section>
+  <section align="right" id="delete"> 
+  	<a href="/blog/{{post.key().id()}}/delete">delete?</a>
+  </section>
+
+<!-- Comments -->
+
+<!-- Start Comment Form -->
+            <form method="post" role="form" class="comment-form">
+                <div class="form-group">
+                    <label for="comment">Comment</label>
+                    <input type="text" class="form-control" id="comment" value="" name="comment">
+                </div>
+<!-- End Comment Form -->
+
+      <div align="right" style="margin-bottom: 5vh;">
+        <button type="submit" class="btn btn-success">Submit comment</button>
+        </form>
+      </div>
+
+
+<div class="sub-work col-md-12">
+    {% for c in comments %}
+    <section class="modal-footer">
+    	<a class="comment-edit btn btn-primary pull-right" href="/blog/{{post.key().id()}}/{{c.key().id()}}/edit">Edit</a>
+        <a class="comment-delete btn btn-danger pull-right" href="/blog/{{post.key().id()}}/{{c.key().id()}}/delete">Delete</a>
+        <p align="left">{{ c.comment }}</p>
+        <footer>{{ c.retrieveUser() }}</footer>
+    </section>
+    {% endfor %}
+</div>
+
+    </div>
+<!-- End Comments -->
 {% endblock %}

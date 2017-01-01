@@ -5,6 +5,7 @@ from convenience import render_str
 from secure import make_secure_val, check_secure_val, valid_username, valid_password, valid_email
 from users import User
 from post import Post
+from comments import Comment
 
 #####Blog Handler#####
 
@@ -93,14 +94,39 @@ class PostPage(BlogHandler):
         """
            Renders post page with all content. 
         """
-        key = db.Key.from_path('Post', int(post_id), parent=blog_key())
-        post = db.get(key)
+        post = db.get(db.Key.from_path('Post', int(post_id), parent=blog_key()))
 
         if not post: #Avoid app errors by using browser 404 error
             self.error(404)
             return
 
-        self.render("permalink.html", post = post)
+        all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
+
+        self.render("permalink.html", post = post, comments = all_comments)
+
+    def post(self, post_id):
+        post = db.get(db.Key.from_path('Post', int(post_id), parent=blog_key()))
+
+        if not post:
+            self.error(404)
+            return
+
+        """
+            On posting comment, new comment tuple is created and stored,
+            with relationship data of user and post.
+        """
+        if(self.user):
+            if(self.request.get('comment')): #Create comment tuple
+                cmt = Comment(parent = blog_key(), author = self.user.key().id(),
+                            comment = self.request.get('comment'), parent_post = int(post_id))
+                cmt.put()
+        else:
+            self.render("login-form.html", error = "You need to be logged in to post comments.")
+            #return
+
+        all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
+
+        self.render("permalink.html", post = post, comments = all_comments)
 
 #Post submission page
 class NewPost(BlogHandler):
@@ -130,7 +156,7 @@ class NewPost(BlogHandler):
             self.redirect('/blog/%s' % str(curr_post.key().id()))
         else:
             error = "Please finish writing your title and text."
-            self.render("newpost.html", subject=subject, content=content, error=error)
+            self.render("newpost.html", subject = subject, content = content, error = error)
 
 #Post edit page
 class EditPost(BlogHandler):
@@ -139,16 +165,18 @@ class EditPost(BlogHandler):
             Verifies user and renders post edit page.
         """
         if self.user:
-            post = db.get(db.Key.from_path("Post", int(post_id), parent=blog_key()))
+            post = db.get(db.Key.from_path("Post", int(post_id), parent = blog_key()))
 
             if post.author == self.user.key().id():
-                self.render("editpost.html", subject=post.subject, content=post.content)
+                self.render("editpost.html", subject = post.subject, content = post.content)
             else:
-                self.render("permalink.html", post = post, error="You didn't make this post, so you can't edit it.")
+                all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
+                self.render("permalink.html", post = post, comments = all_comments, error = "You didn't make this post, so you can't edit it.")
+
                 #self.redirect("/blog/" + post_id + "?error=access-denied")
 
         else:
-            self.render("login-form.html", error="You must log in to edit your posts.")
+            self.render("login-form.html", error = "You must log in to edit your posts.")
 
     def post(self, post_id):
         """
@@ -161,7 +189,7 @@ class EditPost(BlogHandler):
         content = self.request.get('content')
 
         if subject and content:
-            post = db.get(db.Key.from_path('Post', int(post_id), parent=blog_key()))
+            post = db.get(db.Key.from_path('Post', int(post_id), parent = blog_key()))
             post.subject = subject
             post.content = content
             post.put()
@@ -174,17 +202,59 @@ class EditPost(BlogHandler):
 #Delete posts
 class DeletePost(BlogHandler):
     def get(self, post_id):
-        post = db.get(db.Key.from_path('Post', int(post_id), parent=blog_key()))
+        post = db.get(db.Key.from_path('Post', int(post_id), parent = blog_key()))
         if self.user:
             if post.author == self.user.key().id():
                 post.delete()
                 self.redirect("/blog/")
 
             else:
-                self.render("permalink.html", post = post, error="You didn't make this post, so you can't delete it.")
+                all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
+                self.render("permalink.html", post = post, comments = all_comments, error="You didn't make this post, so you can't delete it.")
 
         else:
             self.render("permalink.html", post = post, error="You are not logged in, so you cannot delete posts.")
+
+#Edit comments
+class EditComment(BlogHandler):
+    def get(self, post_id, comment_id):
+        """
+            Retrieves comment edit page.
+        """
+        all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
+        if self.user:
+            comment = db.get(db.Key.from_path('Comment', int(comment_id), parent=blog_key()))
+            post = db.get(db.Key.from_path('Post', int(post_id), parent=blog_key()))
+
+            if comment.author == self.user.key().id():
+                self.render("editcomments.html", comment=comment.comment)
+            else:
+                self.render("permalink.html", post = post, comments = all_comments, error="You didn't write this comment, so you can't edit it.")
+        else:
+            self.render("permalink.html", post = post, comments = all_comments, error="You need to be logged in to edit comments.")
+
+    def post(self, post_id, comment_id):
+        """
+            Updates comment post.
+        """
+        post = db.get(db.Key.from_path('Post', int(post_id), parent=blog_key()))
+        all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
+
+        if not self.user:
+            self.render("permalink.html", post = post, comments = all_comments,error="You need to be logged in to edit comments.")
+
+        all_comments = self.request.get('comment')
+
+        if all_comments:
+            cmt = db.get(db.Key.from_path('Comment', int(comment_id), parent=blog_key()))
+            cmt.comment = self.request.get('comment')
+            cmt.put()
+
+            self.redirect('/blog/%s' % post_id)
+
+        else:
+            error = "Please don't leave any fields blank."
+            self.render("editcomments.html", post_id = post_id, comments = all_comments, error = error)
 
 #User registration handler
 class Register(BlogHandler):
@@ -281,5 +351,6 @@ app = webapp2.WSGIApplication([('/', Front),
                                ('/logout', Logout),
                                ('/blog/([0-9]+)/edit', EditPost),
                                ('/blog/([0-9]+)/delete', DeletePost),
+                               ('/blog/([0-9]+)/([0-9]+)/edit', EditComment),
                                ],
                               debug=True)
