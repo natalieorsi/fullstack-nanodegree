@@ -120,6 +120,7 @@ class PostPage(BlogHandler):
                 cmt = Comment(parent = blog_key(), author = self.user.key().id(),
                             comment = self.request.get('comment'), parent_post = int(post_id))
                 cmt.put()
+                self.redirect('/blog/%s' % post_id)
         else:
             self.render("login-form.html", error = "You need to be logged in to post comments.")
             #return
