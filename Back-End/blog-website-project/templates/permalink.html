@@ -31,21 +31,21 @@
 
 <!--Post-->
   {{post.render() | safe}}
-<div class="row">
-  <section class="col-md-6"><em>Posted by {{user.name}}</em></section>
-  <section align="right" id="delete" class="col-md-6"> 
-  	<a href="/blog/{{post.key().id()}}/delete">delete?</a>
-  </section>
-</div>
-
-<!-- Likes -->
-<div class="row">
-    <div class="col-md-12 right">
+<footer class="row">
+	<!-- Likes -->
+    <section class="col-md-4 center" align="center">
         <form method="post" role="form">
-        	{% if num_likes %}{{num_likes}}{% else %}0{% endif %} Likes
+        	{% if num_likes %}{{num_likes}} Likes &nbsp;{% endif %}
             <button type="submit" class="btn btn-primary">Like</button>
         </form>
-    </div>
+    </section>
+    <!-- User -->
+	<section class="col-md-4 center" align="center"><em>Posted by {{post.author}}</em></section>
+	<!-- Delete -->
+	<section id="delete" class="col-md-4 center" align="center"> 
+  		<a href="/blog/{{post.key().id()}}/delete">delete?</a>
+ 	</section>
+</footer>
 
 <!-- Comments -->
 

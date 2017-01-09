@@ -77,10 +77,12 @@ body {
 }
 
 #post-body {
-    margin-top: 1%;
-    margin-bottom: 3%;
+    padding-top: 1%;
+    padding-bottom: 2%;
+    margin-bottom: 1%;
     border-left: 1px dotted #333;
     border-right: 1px dotted #333;
+    background-color: #e2e2e2;
 }
 
 a {
