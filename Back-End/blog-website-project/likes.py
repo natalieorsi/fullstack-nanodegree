@@ -1,5 +1,5 @@
 from google.appengine.ext import db
-from user import User
+from users import User
 
 
 class Like(db.Model):

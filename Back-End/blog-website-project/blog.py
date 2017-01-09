@@ -103,14 +103,16 @@ class PostPage(BlogHandler):
 
         all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
 
-        all_likes =  db.GqlQuery("select * from Like where post_id = " + post_id)
-        
+        all_likes =  db.GqlQuery("select * from Like where parent_post = " + post_id)
+
         num_likes = all_likes.count()
 
-        self.render("permalink.html", post = post, comments = all_comments)
+        self.render("permalink.html", post = post, comments = all_comments, num_likes = num_likes)
 
     def post(self, post_id):
         post = db.get(db.Key.from_path('Post', int(post_id), parent=blog_key()))
+        all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
+        all_likes =  db.GqlQuery("select * from Like where parent_post = " + post_id)
 
         if not post:
             self.error(404)
@@ -126,13 +128,24 @@ class PostPage(BlogHandler):
                             comment = self.request.get('comment'), parent_post = int(post_id))
                 cmt.put()
                 self.redirect('/blog/%s' % post_id)
+
+            if(self.request.get('like')): #Create Like object
+                l = db.GqlQuery("select * from Like where parent_post = " + post_id + " and liked_by = " + str(self.user.key().id()))
+
+                if self.user.key().id() == post.author:
+                    error_msg = "It goes without saying that you like your own post."
+                    num_likes = all_likes.count()
+                    self.render("permalink.html", post = post, comments = all_comments, error = error_msg, num_likes = num_likes)
+                    return
+
+                elif l.count() < 1:
+                    new_like = Like(parent=blog_key(), liked_by = self.user.key().id(), parent_post = int(post_id))
+                    new_like.put()
         else:
-            self.render("login-form.html", error = "You need to be logged in to post comments.")
+            self.render("login-form.html", error = "You need to be logged in to like posts or submit comments.")
             #return
 
-        all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
-
-        self.render("permalink.html", post = post, comments = all_comments)
+        self.redirect('/blog/%s' % post_id)
 
 #Post submission page
 class NewPost(BlogHandler):
