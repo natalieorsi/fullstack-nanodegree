@@ -138,7 +138,7 @@ class PostPage(BlogHandler):
                     self.render("permalink.html", post = post, comments = all_comments, error = error_msg, num_likes = num_likes)
                     return
 
-                elif l.count() < 1:
+                elif l.count() == 0:
                     new_like = Like(parent=blog_key(), liked_by = self.user.key().id(), parent_post = int(post_id))
                     new_like.put()
         else:
