@@ -241,20 +241,40 @@ class EditComment(BlogHandler):
         all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
 
         if not self.user:
-            self.render("permalink.html", post = post, comments = all_comments,error="You need to be logged in to edit comments.")
+            self.render("permalink.html", post = post, comments = all_comments, error = "You need to be logged in to edit comments.")
 
         all_comments = self.request.get('comment')
 
         if all_comments:
-            cmt = db.get(db.Key.from_path('Comment', int(comment_id), parent=blog_key()))
+            cmt = db.get(db.Key.from_path('Comment', int(comment_id), parent = blog_key()))
             cmt.comment = self.request.get('comment')
             cmt.put()
 
-            self.redirect('/blog/%s' % post_id)
+            self.render("permalink.html", post = post, comments = all_comments)
 
         else:
             error = "Please don't leave any fields blank."
             self.render("editcomments.html", post_id = post_id, comments = all_comments, error = error)
+
+#Dekete comments
+class DeleteComment(BlogHandler):
+
+    def get(self, post_id, comment_id):
+        all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
+        post = db.get(db.Key.from_path('Post', int(post_id), parent = blog_key()))
+
+        if self.user:
+            cmt = db.get(db.Key.from_path('Comment', int(comment_id), parent=blog_key()))
+            if cmt.author == self.user.key().id():
+                cmt.delete()
+                self.render("permalink.html", post = post, comments = all_comments, success = "Comment successfully deleted")
+            else:
+                self.render("permalink.html", post = post, comments = all_comments, error = "You didn't write this comment, so you can't delete it.")
+        else:
+            self.render("permalink.html", post = post, comments = all_comments, error = "You need to be logged in to delete comments.")
+
+    # def post(self, post_id, comment_id):
+    #     EditComment.post(self, post_id, comment_id)
 
 #User registration handler
 class Register(BlogHandler):
@@ -352,5 +372,6 @@ app = webapp2.WSGIApplication([('/', Front),
                                ('/blog/([0-9]+)/edit', EditPost),
                                ('/blog/([0-9]+)/delete', DeletePost),
                                ('/blog/([0-9]+)/([0-9]+)/edit', EditComment),
+                               ('/blog/([0-9]+)/([0-9]+)/delete', DeleteComment),
                                ],
                               debug=True)

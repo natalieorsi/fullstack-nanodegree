@@ -8,6 +8,24 @@
 	<div class="alert alert-danger" role="alert">
 	    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 	    {{error}}
+	    <p>You will be redirected in 5 seconds...</p>
+	    <script>
+	        var timer = setTimeout(function() {
+	            window.location='/blog/{{post.key().id()}}'
+	        }, 5000);
+	    </script>
+	</div>
+{% elif success %}
+<br>
+	<div class="alert alert-success" role="alert">
+	    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	    {{success}}
+	    <p>You will be redirected in 5 seconds...</p>
+	    <script>
+	        var timer = setTimeout(function() {
+	            window.location='/blog/{{post.key().id()}}'
+	        }, 5000);
+	    </script>
 	</div>
 {% endif %}
 
