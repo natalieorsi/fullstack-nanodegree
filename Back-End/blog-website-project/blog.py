@@ -6,6 +6,7 @@ from secure import make_secure_val, check_secure_val, valid_username, valid_pass
 from users import User
 from post import Post
 from comments import Comment
+from likes import Like
 
 #####Blog Handler#####
 
@@ -92,7 +93,7 @@ class Front(BlogHandler):
 class PostPage(BlogHandler):
     def get(self, post_id):
         """
-           Renders post page with all content. 
+           Renders post page with all content, including comments and likes.
         """
         post = db.get(db.Key.from_path('Post', int(post_id), parent=blog_key()))
 
@@ -101,6 +102,10 @@ class PostPage(BlogHandler):
             return
 
         all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
+
+        all_likes =  db.GqlQuery("select * from Like where post_id = " + post_id)
+        
+        num_likes = all_likes.count()
 
         self.render("permalink.html", post = post, comments = all_comments)
 
