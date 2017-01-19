@@ -35,7 +35,8 @@
 	<!-- Likes -->
     <section class="col-md-4 center" align="center">
         <form method="post" role="form">
-        	{% if num_likes %}{{num_likes}} Likes &nbsp;{% endif %}
+        	<input type="hidden" id="like" name="like" value="true">
+        	<label for="like">{% if num_likes %}{{num_likes}} Likes &nbsp;{% endif %}</label>
             <button type="submit" class="btn btn-primary">Like</button>
         </form>
     </section>
@@ -52,6 +53,7 @@
 <!-- Start Comment Form -->
             <form method="post" role="form" class="comment-form">
                 <div class="form-group">
+                	<hidden name="post_id" value="{{post_id}}">
                     <label for="comment">Comment</label>
                     <input type="text" class="form-control" id="comment" value="" name="comment">
                 </div>
