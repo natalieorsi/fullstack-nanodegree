@@ -8,8 +8,11 @@
 	</div>
 	{% endif %}
 
-  {% for p in posts %}
-	    {{ p.render() | safe }}
-  {% endfor %}
-
+	{% if posts %}
+	  {% for p in posts %}
+		    {{ p.render() | safe }}
+	  {% endfor %}
+	{% else %}
+		<h2>No posts yet - be the first!</h2>
+	{% endif %}
 {% endblock %}
