@@ -22,6 +22,11 @@ indexes:
   - name: created
     direction: desc
 
+- kind: Like
+  properties:
+  - name: parent_post
+  - name: liked_by
+
 - kind: Post
   ancestor: yes
   properties:
