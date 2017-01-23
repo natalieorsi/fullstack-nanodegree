@@ -96,7 +96,6 @@ class PostPage(BlogHandler):
            Renders post page with all content, including comments and likes.
         """
         post = db.get(db.Key.from_path('Post', int(post_id), parent=blog_key()))
-
         if not post: #Avoid app errors by using browser 404 error
             self.error(404)
             return
@@ -107,12 +106,13 @@ class PostPage(BlogHandler):
 
         num_likes = all_likes.count()
 
-        self.render("permalink.html", post = post, comments = all_comments, num_likes = num_likes)
+        self.render("permalink.html", post = post, comments = all_comments, num_likes = num_likes, post_id = post_id)
 
     def post(self, post_id):
         post = db.get(db.Key.from_path('Post', int(post_id), parent=blog_key()))
-        all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
-        all_likes =  db.GqlQuery("select * from Like where parent_post = " + post_id)
+        #print "post_id:",post_id
+        all_comments = db.GqlQuery("SELECT * FROM Comment WHERE parent_post = " + post_id + "order by created desc")
+        all_likes =  db.GqlQuery("SELECT * FROM Like WHERE parent_post = " + post_id)
 
         if not post:
             self.error(404)
@@ -129,18 +129,29 @@ class PostPage(BlogHandler):
                 cmt.put()
                 self.redirect('/blog/%s' % post_id)
 
-            if(self.request.get('like')): #Create Like object
-                l = db.GqlQuery("select * from Like where parent_post = " + post_id + " and liked_by = " + str(self.user.key().id()))
+            if(self.request.get('like') and (self.request.get('like') == "true")): #Create Like object
+                liker = self.user.key().id()
+                liked_by_all = db.GqlQuery("SELECT DISTINCT liked_by FROM Like WHERE parent_post = " + post_id)
+                liked_list = liked_by_all.fetch(limit=10000)
+                likes_list = str([x.liked_by for x in liked_list])
+                previous_like = str(liker) in likes_list
 
-                if self.user.key().id() == post.author:
+                if liker == post.author:
                     error_msg = "It goes without saying that you like your own post."
                     num_likes = all_likes.count()
-                    self.render("permalink.html", post = post, comments = all_comments, error = error_msg, num_likes = num_likes)
+                    self.render("permalink.html", post = post, comments = all_comments, error = error_msg, num_likes = num_likes, post_id = post_id)
                     return
 
-                elif l.count() == 0:
+                elif not previous_like:
                     new_like = Like(parent=blog_key(), liked_by = self.user.key().id(), parent_post = int(post_id))
                     new_like.put()
+
+                else:
+                    error_msg = "You already liked this post."
+                    num_likes = all_likes.count()
+                    self.render("permalink.html", post = post, comments = all_comments, error = error_msg, num_likes = num_likes, post_id = post_id)
+                    return
+
         else:
             self.render("login-form.html", error = "You need to be logged in to like posts or submit comments.")
             #return
@@ -190,7 +201,9 @@ class EditPost(BlogHandler):
                 self.render("editpost.html", subject = post.subject, content = post.content)
             else:
                 all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
-                self.render("permalink.html", post = post, comments = all_comments, error = "You didn't make this post, so you can't edit it.")
+                all_likes =  db.GqlQuery("SELECT * FROM Like WHERE parent_post = " + post_id)
+
+                self.render("permalink.html", post = post, comments = all_comments, num_likes = all_likes.count(), error = "You didn't make this post, so you can't edit it.")
 
                 #self.redirect("/blog/" + post_id + "?error=access-denied")
 
@@ -229,7 +242,9 @@ class DeletePost(BlogHandler):
 
             else:
                 all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
-                self.render("permalink.html", post = post, comments = all_comments, error="You didn't make this post, so you can't delete it.")
+                all_likes =  db.GqlQuery("SELECT * FROM Like WHERE parent_post = " + post_id)
+
+                self.render("permalink.html", post = post, comments = all_comments, num_likes = all_likes.count(), error="You didn't make this post, so you can't delete it.")
 
         else:
             self.render("permalink.html", post = post, error="You are not logged in, so you cannot delete posts.")
@@ -241,16 +256,18 @@ class EditComment(BlogHandler):
             Retrieves comment edit page.
         """
         all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
+        all_likes =  db.GqlQuery("SELECT * FROM Like WHERE parent_post = " + post_id)
+        post = db.get(db.Key.from_path('Post', int(post_id), parent=blog_key()))
+
         if self.user:
             comment = db.get(db.Key.from_path('Comment', int(comment_id), parent=blog_key()))
-            post = db.get(db.Key.from_path('Post', int(post_id), parent=blog_key()))
 
             if comment.author == self.user.key().id():
                 self.render("editcomments.html", comment=comment.comment)
             else:
-                self.render("permalink.html", post = post, comments = all_comments, error="You didn't write this comment, so you can't edit it.")
+                self.render("permalink.html", post = post, comments = all_comments, num_likes = all_likes.count(), error="You didn't write this comment, so you can't edit it.")
         else:
-            self.render("permalink.html", post = post, comments = all_comments, error="You need to be logged in to edit comments.")
+            self.render("permalink.html", post = post, comments = all_comments, num_likes = all_likes.count(), error="You need to be logged in to edit comments.")
 
     def post(self, post_id, comment_id):
         """
@@ -258,9 +275,11 @@ class EditComment(BlogHandler):
         """
         post = db.get(db.Key.from_path('Post', int(post_id), parent=blog_key()))
         all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
+        all_likes =  db.GqlQuery("SELECT * FROM Like WHERE parent_post = " + post_id)
 
         if not self.user:
-            self.render("permalink.html", post = post, comments = all_comments, error = "You need to be logged in to edit comments.")
+
+            self.render("permalink.html", post = post, comments = all_comments, num_likes = all_likes.count(), error = "You need to be logged in to edit comments.")
 
         all_comments = self.request.get('comment')
 
@@ -269,7 +288,8 @@ class EditComment(BlogHandler):
             cmt.comment = self.request.get('comment')
             cmt.put()
 
-            self.render("permalink.html", post = post, comments = all_comments)
+            self.redirect('/blog/%s' % post_id)
+            #self.render("permalink.html", post = post, comments = all_comments, num_likes = all_likes.count())
 
         else:
             error = "Please don't leave any fields blank."
@@ -281,16 +301,17 @@ class DeleteComment(BlogHandler):
     def get(self, post_id, comment_id):
         all_comments = db.GqlQuery("select * from Comment where parent_post = " + post_id + "order by created desc")
         post = db.get(db.Key.from_path('Post', int(post_id), parent = blog_key()))
+        all_likes =  db.GqlQuery("SELECT * FROM Like WHERE parent_post = " + post_id)
 
         if self.user:
             cmt = db.get(db.Key.from_path('Comment', int(comment_id), parent=blog_key()))
             if cmt.author == self.user.key().id():
                 cmt.delete()
-                self.render("permalink.html", post = post, comments = all_comments, success = "Comment successfully deleted")
+                self.render("permalink.html", post = post, comments = all_comments, num_likes = all_likes.count(), success = "Comment successfully deleted")
             else:
-                self.render("permalink.html", post = post, comments = all_comments, error = "You didn't write this comment, so you can't delete it.")
+                self.render("permalink.html", post = post, comments = all_comments, num_likes = all_likes.count(), error = "You didn't write this comment, so you can't delete it.")
         else:
-            self.render("permalink.html", post = post, comments = all_comments, error = "You need to be logged in to delete comments.")
+            self.render("permalink.html", post = post, comments = all_comments, num_likes = all_likes.count(), error = "You need to be logged in to delete comments.")
 
     # def post(self, post_id, comment_id):
     #     EditComment.post(self, post_id, comment_id)
