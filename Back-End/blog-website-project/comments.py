@@ -1,7 +1,7 @@
 from google.appengine.ext import db
 from users import User
 
-
+#Comment class
 class Comment(db.Model):
     comment = db.TextProperty(required=True)
     parent_post = db.IntegerProperty(required=True)
