@@ -12,3 +12,7 @@ class Post(db.Model):
     def render(self):
         self._render_text = self.content.replace('\n', '<br>')
         return render_str("post.html", p = self)
+
+	def retrieveUser(self):
+		user_obj = User.by_id(self.author)
+		return user_obj.name
